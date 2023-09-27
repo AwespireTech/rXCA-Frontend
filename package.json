@@ -10,13 +10,14 @@
     "lint": "next lint",
     "prettier": "prettier --ignore-path .gitignore .",
     "format": "npm run prettier -- --write",
-    "fromat:check": "npm run prettier -- --check",
+    "format:check": "npm run prettier -- --check",
     "validate": "npm run format:check && npm run lint"
   },
   "dependencies": {
     "next": "13.5.3",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "sass": "^1.62.1"
   },
   "devDependencies": {
     "@types/node": "20.7.0",

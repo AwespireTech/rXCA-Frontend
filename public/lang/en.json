@@ -1,0 +1,89 @@
+{
+  "dao": {
+    "contractAddr": {
+      "label": "Contract address",
+      "placeholder": "Enter DAO address or ID"
+    },
+    "network": {
+      "label": "Network",
+      "placeholder": "Choose network"
+    },
+    "name": {
+      "label": "Name",
+      "placeholder": "Enter DAO name"
+    },
+    "desc": {
+      "label": "Description",
+      "placeholder": "Enter DAO description"
+    },
+    "framework": {
+      "label": "Framework",
+      "placeholder": "Choose framework"
+    },
+    "members": {
+      "label": "Members URI",
+      "placeholder": "Enter URI to activity log"
+    },
+    "proposals": {
+      "label": "Proposals URI",
+      "placeholder": "Enter URI to proposals"
+    },
+    "issuers": {
+      "label": "Issuers URI",
+      "placeholder": "Enter URI to issuers"
+    },
+    "registry": {
+      "label": "Contracts Registry URI",
+      "placeholder": "Enter URI to contracts registry"
+    },
+    "managerAddr": {
+      "label": "Manager address",
+      "placeholder": "Enter address of DAO manager"
+    },
+    "document": {
+      "label": "Governance document",
+      "placeholder": "Enter URI to governance document"
+    }
+  },
+  "action": {
+    "register": {
+      "short": "Register",
+      "full": "Register new DAO"
+    },
+    "cancel": "Cancel",
+    "deny": "Deny",
+    "approve": "Approve"
+  },
+  "hint": {
+    "register": "Registering will generate a DAO URI",
+    "optional": "optional"
+  },
+  "filter": {
+    "pending": "Pending DAOs",
+    "approved": "Approved DAOs",
+    "denied": "Denied DAOs"
+  },
+  "wallet": {
+    "connect": "Connect wallet",
+    "disconnect": "Disconnect",
+    "myPage": "My page"
+  },
+  "page": {
+    "explore": {
+      "title": "Explore",
+      "description": "Maybe some description"
+    },
+    "register": {
+      "title": "Register your DAO",
+      "description": "Maybe some description"
+    },
+    "myPage": {
+      "title": "My page",
+      "description": "Maybe some description"
+    },
+    "approval": {
+      "title": "Approval",
+      "description": "Maybe some description"
+    }
+  }
+}
