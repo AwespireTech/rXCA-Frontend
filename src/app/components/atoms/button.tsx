@@ -33,7 +33,7 @@ export const Button = ({
       style += " py-1 px-6 text-base"
       break
     case "large":
-      style += " py-2 px-6 text-xl"
+      style += " py-2 px-8 text-2xl"
       break
   }
 

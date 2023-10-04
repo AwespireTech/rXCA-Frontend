@@ -9,7 +9,7 @@ export const FormItem = ({
 }) => {
   return (
     <div className="flex w-full flex-col gap-2">
-      <p className="text-lg">
+      <p className="text-xl">
         {label}
         <span className="text-highlight">{isRequired ? "*" : " (optional)"}</span>
         <span>:</span>
@@ -18,3 +18,5 @@ export const FormItem = ({
     </div>
   )
 }
+
+export default FormItem

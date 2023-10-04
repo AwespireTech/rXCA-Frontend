@@ -3,20 +3,20 @@ import styles from "./styles.module.scss"
 
 export const Dropdown = ({
   id,
-  items,
-  selectedItem,
+  options,
+  selectedOption,
   onSelect,
   full = false
 }: {
   id: string
-  items: string[]
-  selectedItem: string
+  options: string[]
+  selectedOption: string
   // selectedIdx: number,
-  onSelect: (item: string) => void
+  onSelect: (option: string) => void
   full?: boolean
 }) => {
   const [showDropdown, setShowDropdown] = useState(false)
-  const selectedIdx = items.indexOf(selectedItem)
+  const selectedIdx = options.indexOf(selectedOption)
 
   useEffect(() => {
     const handleOnClickOutside = (event: MouseEvent) => {
@@ -32,8 +32,8 @@ export const Dropdown = ({
     }
   }, [id])
 
-  const handleOnSelect = (item: string) => {
-    onSelect(item)
+  const handleOnSelect = (option: string) => {
+    onSelect(option)
     setShowDropdown(false)
   }
 
@@ -45,22 +45,22 @@ export const Dropdown = ({
           setShowDropdown((state) => !state)
         }}
       >
-        <p id={`${id}_shownText`}>{items[selectedIdx]}</p>
+        <p id={`${id}_shownText`}>{options[selectedIdx]}</p>
         <svg>
           <polygon points="0,0 8,8 16,0" />
         </svg>
       </button>
 
       <div className={`${styles.dropdownList} ${showDropdown ? styles.show : ""}`}>
-        {items.map((item, idx) => (
+        {options.map((option, idx) => (
           <button
             key={idx}
             className={styles.dropdownListItem}
             onClick={() => {
-              handleOnSelect(items[idx])
+              handleOnSelect(options[idx])
             }}
           >
-            {item}
+            {option}
           </button>
         ))}
       </div>
