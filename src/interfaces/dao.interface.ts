@@ -7,9 +7,11 @@ export declare interface Dao {
   membersUri: string
   proposalsUri: string
   issuersUri: string
-  contractsRegUri: string
-  managerAddress: string
-  governanceDocument: string
-  state?: number
-  daoUri?: string
+  contractsRegUri?: string
+  managerAddress?: string
+  governanceDocument?: string
+  state: number
+  daoUri: string
 }
+
+export type CreateDaoPayload = Omit<Dao, "state" | "daoUri">

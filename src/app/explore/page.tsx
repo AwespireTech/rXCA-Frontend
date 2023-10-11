@@ -7,9 +7,10 @@ import { API_URL } from "../../constant"
 import { json } from "stream/consumers"
 import { getAllDaos } from "@/utils/api"
 import DAOView from "../components/organisms/dao-view"
+import { Dao } from "@/interfaces/dao.interface"
 
 export const Explore = () => {
-  const [daos, setDaos] = useState([])
+  const [daos, setDaos] = useState<Dao[] | null>(null)
 
   useEffect(() => {
     getAllDaos()
@@ -26,9 +27,7 @@ export const Explore = () => {
       <Header />
       <Title>{lang.page.explore.title}</Title>
       <div className="grid w-[90%] grid-cols-3 gap-8 xl:w-[70%]">
-        {daos.map((dao, i) => (
-          <DAOView dao={dao} key={i}></DAOView>
-        ))}
+        {daos && daos.map((dao, i) => <DAOView dao={dao} key={i}></DAOView>)}
       </div>
     </>
   )
