@@ -4,8 +4,8 @@ import Link from "next/link"
 const nav = ["Explore", "Register"]
 
 export const Header = () => {
-  const [showMenu, setShowMenu] = useState(false)
-  const [currPath, setCurrPath] = useState(location.pathname?.split("/")[1])
+  const [showMenu, setShowMenu] = useState<boolean>(false)
+  const [currPath, setCurrPath] = useState<string>("")
 
   useEffect(() => {
     if (location.pathname?.split("/")[1]) {

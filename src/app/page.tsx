@@ -9,6 +9,7 @@ import { Dropdown } from "./components/atoms/dropdown"
 import { FormItem } from "./components/molecules/form-item"
 import DAOView from "./components/organisms/dao-view"
 import Header from "./components/organisms/header"
+import { testDao } from "../constant"
 
 export default function Home() {
   const [value, setValue] = useState("")
@@ -17,7 +18,6 @@ export default function Home() {
 
   return (
     <>
-      <Header />
       <Title>Component Testing</Title>
       <Button id="id" variant="primary" size="large" onClick={() => console.log("clicked")}>
         Click me
@@ -44,26 +44,26 @@ export default function Home() {
       </FormItem>
       <Dropdown
         id="dropdown"
-        items={["pending", "approved", "longlonglonglong"]}
-        selectedItem={selectedDropdown}
+        options={["pending", "approved", "longlonglonglong"]}
+        selectedOption={selectedDropdown}
         // selectedIdx={selectedDropdownIdx}
-        onSelect={(item) => {
+        onSelect={(item: string) => {
           setSelectedDropdown(item)
         }}
       />
       <FormItem label="label" isRequired>
         <Dropdown
           id="dropdown"
-          items={["pending", "approved", "longlonglonglong"]}
-          selectedItem={selectedDropdown}
+          options={["pending", "approved", "longlonglonglong"]}
+          selectedOption={selectedDropdown}
           // selectedIdx={selectedDropdownIdx}
-          onSelect={(item) => {
+          onSelect={(item: string) => {
             setSelectedDropdown(item)
           }}
           full
         />
       </FormItem>
-      <DAOView>
+      <DAOView dao={testDao}>
         <Button id="id" variant="secondary" size="normal" onClick={() => console.log("clicked")}>
           Click me
         </Button>

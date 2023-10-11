@@ -1,12 +1,12 @@
 {
   "dao": {
-    "contractAddr": {
-      "label": "Contract address",
-      "placeholder": "Enter DAO address or ID"
-    },
     "network": {
       "label": "Network",
       "placeholder": "Choose network"
+    },
+    "address": {
+      "label": "Contract address",
+      "placeholder": "Enter DAO address or ID"
     },
     "name": {
       "label": "Name",
@@ -20,29 +20,33 @@
       "label": "Framework",
       "placeholder": "Choose framework"
     },
-    "members": {
+    "membersUri": {
       "label": "Members URI",
       "placeholder": "Enter URI to activity log"
     },
-    "proposals": {
+    "proposalsUri": {
       "label": "Proposals URI",
       "placeholder": "Enter URI to proposals"
     },
-    "issuers": {
+    "issuersUri": {
       "label": "Issuers URI",
       "placeholder": "Enter URI to issuers"
     },
-    "registry": {
+    "contractsRegUri": {
       "label": "Contracts Registry URI",
       "placeholder": "Enter URI to contracts registry"
     },
-    "managerAddr": {
+    "managerAddress": {
       "label": "Manager address",
       "placeholder": "Enter address of DAO manager"
     },
-    "document": {
+    "governanceDocument": {
       "label": "Governance document",
       "placeholder": "Enter URI to governance document"
+    },
+    "daoUri": {
+      "label": "Dao URI",
+      "placeholder": "Enter URI to DAO"
     }
   },
   "action": {

@@ -1,15 +1,17 @@
+import { Dao } from "@/interfaces/dao.interface"
+import lang from "@../../../public/lang/en.json"
 import OpenInNew from "../atoms/open-in-new"
 
 const Row = ({ label, value }: { label: string; value: string }) => {
   return (
-    <div className="flex flex-col gap-1">
+    <div className="flex flex-col">
       <p className="text-deepgray">{`${label} :`}</p>
       <p className="text-sm">{value}</p>
     </div>
   )
 }
 
-export const DAOView = ({ children }: { children: React.ReactNode }) => {
+export const DAOView = ({ dao, children }: { dao: Dao; children: React.ReactNode }) => {
   return (
     <div className="flex flex-col gap-6 rounded-lg border-2 border-highlight bg-secondary p-4">
       <div className="flex flex-col text-xl">
@@ -21,20 +23,28 @@ export const DAOView = ({ children }: { children: React.ReactNode }) => {
             <polygon points="36,8 48,0 48,16" />
           </svg>
         </div>
-        <div>DOWDAO</div>
+        <div>{dao.name}</div>
       </div>
 
       <div className="flex flex-col gap-2">
-        <Row label="Contract address" value="0x1234567890123456789012345678901234567890" />
+        <Row label={lang.dao.address.label} value={dao.address} />
+        <Row label={lang.dao.daoUri.label} value={dao.daoUri!} />
+        <Row label={lang.dao.managerAddress.label} value={dao.managerAddress} />
+        <Row label={lang.dao.network.label} value={dao.network} />
       </div>
 
       <div className="grid grid-cols-2 divide-x divide-dashed divide-deepgray border-y border-dashed border-deepgray">
         <div className="flex flex-col items-start py-2">
-          <Row label="Description" value="A DAO for DOW" />
+          <Row label={lang.dao.desc.label} value={dao.description} />
         </div>
         <div className="flex flex-col items-end gap-1 py-2">
-          <OpenInNew label="Members" link="" />
-          <OpenInNew label="Members" link="" />
+          <OpenInNew label={lang.dao.membersUri.label.split(" ")[0]} link={dao.membersUri} />
+          <OpenInNew
+            label={lang.dao.governanceDocument.label.split(" ")[0]}
+            link={dao.governanceDocument}
+          />
+          <OpenInNew label={lang.dao.proposalsUri.label.split(" ")[0]} link={dao.proposalsUri} />
+          <OpenInNew label={lang.dao.issuersUri.label.split(" ")[0]} link={dao.issuersUri} />
         </div>
       </div>
 

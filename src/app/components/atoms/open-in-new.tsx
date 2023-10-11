@@ -1,6 +1,6 @@
 export const OpenInNew = ({ label, link }: { label: string; link: string }) => {
   return (
-    <div className="flex flex-row items-center gap-1">
+    <div className="flex flex-row items-center gap-1 hover:cursor-pointer">
       <p>{label}</p>
       <svg
         xmlns="http://www.w3.org/2000/svg"
