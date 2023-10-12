@@ -16,7 +16,7 @@ import {
 } from "../../constant"
 import { createDao } from "@/utils/api"
 
-export const Register = () => {
+const Register = () => {
   const [network, setNetwork] = useState<string>(defaultNetwork)
   const [address, setAddress] = useState<string>("")
   const [name, setName] = useState<string>("")

@@ -29,7 +29,7 @@ export const DAOView = ({ dao, children }: { dao: Dao; children: React.ReactNode
       <div className="flex flex-col gap-2">
         <Row label={lang.dao.address.label} value={dao.address} />
         <Row label={lang.dao.daoUri.label} value={dao.daoUri!} />
-        <Row label={lang.dao.managerAddress.label} value={dao.managerAddress} />
+        <Row label={lang.dao.managerAddress.label} value={dao.managerAddress || ""} />
         <Row label={lang.dao.network.label} value={dao.network} />
       </div>
 
@@ -41,7 +41,7 @@ export const DAOView = ({ dao, children }: { dao: Dao; children: React.ReactNode
           <OpenInNew label={lang.dao.membersUri.label.split(" ")[0]} link={dao.membersUri} />
           <OpenInNew
             label={lang.dao.governanceDocument.label.split(" ")[0]}
-            link={dao.governanceDocument}
+            link={dao.governanceDocument || ""}
           />
           <OpenInNew label={lang.dao.proposalsUri.label.split(" ")[0]} link={dao.proposalsUri} />
           <OpenInNew label={lang.dao.issuersUri.label.split(" ")[0]} link={dao.issuersUri} />
