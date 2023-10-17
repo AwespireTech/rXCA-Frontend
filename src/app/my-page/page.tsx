@@ -2,7 +2,7 @@
 import Header from "../components/organisms/header"
 import Title from "../components/atoms/title"
 
-export const MyPage = () => {
+const MyPage = () => {
   return (
     <>
       <Header />

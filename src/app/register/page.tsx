@@ -14,8 +14,9 @@ import {
   frameworkOptions,
   networkOptions
 } from "../../constant"
+import { createDao } from "@/utils/api"
 
-export const Register = () => {
+const Register = () => {
   const [network, setNetwork] = useState<string>(defaultNetwork)
   const [address, setAddress] = useState<string>("")
   const [name, setName] = useState<string>("")
@@ -29,31 +30,21 @@ export const Register = () => {
   const [governanceDocument, setGovernanceDocument] = useState<string>("")
 
   const handleRegister = () => {
-    fetch(`${API_URL}`, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        contract: network, // contract to be changed to network
-        addr: address,
-        name: name,
-        contractsRegUri: description,
-        framwork: framework,
-        members_uri: membersUri,
-        proposals_uri: proposalsUri,
-        issuers_uri: issuersUri,
-        contracts_reg_uri: contractsRegUri,
-        manager_addr: managerAddress,
-        governance_doc: governanceDocument
-      })
+    createDao({
+      network,
+      address,
+      name,
+      description,
+      framework,
+      membersUri,
+      proposalsUri,
+      issuersUri,
+      contractsRegUri,
+      managerAddress,
+      governanceDocument
     })
       .then((res) => {
-        return res.json()
-      })
-      .then((json) => {
-        console.log(json)
+        console.log(res)
       })
       .catch((e) => {
         console.log(e)
@@ -165,9 +156,13 @@ export const Register = () => {
         </FormItem>
       </div>
 
-      <Button id="register-btn" variant="primary" size="large" onClick={handleRegister}>
-        {lang.action.register.short}
-      </Button>
+      <div className="flex w-full flex-col items-center gap-4">
+        <Button id="register-btn" variant="primary" size="large" onClick={handleRegister}>
+          {lang.action.register.short}
+        </Button>
+
+        <div>{lang.hint.register}</div>
+      </div>
     </>
   )
 }

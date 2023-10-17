@@ -1,6 +1,6 @@
 import { Dao } from "./interfaces/dao.interface"
 
-export const API_URL = "http://localhost:8080/api/dao"
+export const API_URL = "https://rxca.imlab.app/api/dao"
 
 export const networkOptions = ["Mainnet"]
 
@@ -12,6 +12,7 @@ export const defaultFramework = frameworkOptions[0]
 
 export const testDao: Dao = {
   address: "0x1234567890123456789012345678901234567890",
+  state: 0,
   network: "mainnet",
   name: "Test DAO",
   description: "This is a test DAO",
