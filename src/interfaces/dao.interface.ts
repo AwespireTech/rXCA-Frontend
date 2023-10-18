@@ -12,7 +12,6 @@ export declare interface Dao {
   managerAddress?: string
   governanceDocument?: string
   state: number
-  daoUri: string
   tokenId: number
   creator: string
 }
@@ -21,7 +20,7 @@ export default Dao
 
 export type GetDaosReponse = Dao[]
 export type GetDaosParams = {
-  name?: string
+  search?: string
   address?: string
   state?: string
 }
@@ -34,4 +33,8 @@ export type DeleteDaoResponse = "OK"
 export type ValidateDaoPayload = {
   validate: boolean
   opHash?: string
+}
+
+export type RevokeDaoPayload = {
+  opHash: string
 }

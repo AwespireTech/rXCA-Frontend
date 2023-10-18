@@ -4,7 +4,7 @@ import Web3 from "web3"
 import { ABI } from "@/constant"
 import React, { createContext, useCallback, useContext, useEffect, useState } from "react"
 import MetaMaskSDK from "@metamask/sdk"
-import { validateDao } from "@/utils/api"
+import { revokeDao, validateDao } from "@/utils/api"
 
 const web3 = new Web3(process.env.NEXT_PUBLIC_HTTP_PROVIDER)
 new MetaMaskSDK({
@@ -152,6 +152,8 @@ export function XCAProvider({ children }: { children: React.ReactNode }) {
 
   const mint = async (toAddr: string, tokenUri: string) => {
     console.log("mint")
+    console.log(toAddr)
+    console.log(tokenUri)
 
     let params = [
       {
@@ -211,8 +213,7 @@ export function XCAProvider({ children }: { children: React.ReactNode }) {
 
           setTimeout(() => {
             waitForTransactionReceipt(opHash as string, () =>
-              validateDao(toAddr, {
-                validate: false,
+              revokeDao(toAddr, {
                 opHash: opHash as string
               })
             )

@@ -13,7 +13,6 @@ import useXCA from "../../hooks/useXCA"
 
 const Register = () => {
   const { address } = useXCA()
-  const API_URL = process.env.NEXT_PUBLIC_API_URL
   const [network, setNetwork] = useState<string>(defaultNetwork)
   const [daoAddress, setDaoAddress] = useState<string>("")
   const [name, setName] = useState<string>("")
@@ -40,7 +39,7 @@ const Register = () => {
         contractsRegUri,
         managerAddress,
         governanceDocument,
-        daoUri: `${API_URL}/daos/${daoAddress}`,
+        // daoUri: `${API_URL}/daos/${daoAddress}`,
         creator: address
       })
         .then((res) => {

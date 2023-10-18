@@ -18,16 +18,19 @@ const MyPage = () => {
   const [selectedTabIdx, setSelectedTabIdx] = useState<number>(0)
 
   useEffect(() => {
-    getDaos({
-      state: selectedTabIdx.toString()
-    })
-      .then((daos) => {
-        setDaos(daos)
+    if (address) {
+      getDaos({
+        address,
+        state: selectedTabIdx.toString()
       })
-      .catch((e) => {
-        console.log(e)
-      })
-  }, [selectedTabIdx])
+        .then((daos) => {
+          setDaos(daos)
+        })
+        .catch((e) => {
+          console.log(e)
+        })
+    }
+  }, [address, selectedTabIdx])
 
   return (
     <>

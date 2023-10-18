@@ -14,6 +14,7 @@ import { useRouter } from "next/navigation"
 
 export const Admin = () => {
   const { address, mint, burn } = useXCA()
+  const API_URL = process.env.NEXT_PUBLIC_API_URL
   const router = useRouter()
   const [daos, setDaos] = useState<Dao[] | null>(null)
   const [selectedTabIdx, setSelectedTabIdx] = useState<number>(0)
@@ -38,9 +39,9 @@ export const Admin = () => {
     }
   }, [address, router, selectedTabIdx])
 
-  const handleApprove = (daoAddress: string, daoUri: string) => {
+  const handleApprove = (daoAddress: string) => {
     // TODO: check tokenURI
-    mint(daoAddress, daoUri)
+    mint(daoAddress, `${API_URL}/daos/${daoAddress}`)
   }
 
   const handleDeny = (daoAddress: string) => {
@@ -98,7 +99,7 @@ export const Admin = () => {
                           variant="primary"
                           size="normal"
                           onClick={() => {
-                            handleApprove(dao.address, dao.daoUri)
+                            handleApprove(dao.address)
                           }}
                         >
                           {lang.action.approve}

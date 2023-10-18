@@ -28,7 +28,7 @@ const Explore = () => {
 
   const handleSearch = () => {
     getDaos({
-      name: search
+      search
     })
       .then((daos) => {
         console.log(daos)
