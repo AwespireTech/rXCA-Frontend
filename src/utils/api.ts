@@ -1,11 +1,10 @@
+import { API_URL } from "@/constant"
 import {
   CreateDaoPayload,
   GetDaosParams,
   RevokeDaoPayload,
   ValidateDaoPayload
 } from "@/interfaces/dao.interface"
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080/api"
 
 export const getDaos = async (params?: GetDaosParams) => {
   const res = await fetch(`${API_URL}/dao?` + new URLSearchParams(params))

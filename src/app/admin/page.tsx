@@ -8,13 +8,12 @@ import Dao from "@/interfaces/dao.interface"
 import { authAddress, getDaos, validateDao } from "@/utils/api"
 import DaoView from "@/components/organisms/dao-view"
 import TabGroup from "@/components/molecules/tab-group"
-import { DaoStates, daoStatesTab } from "@/constant"
+import { API_URL, DaoStates, daoStatesTab } from "@/constant"
 import Title from "@/components/atoms/title"
 import { useRouter } from "next/navigation"
 
 const Admin = () => {
   const { address, mint, burn } = useXCA()
-  const API_URL = process.env.NEXT_PUBLIC_API_URL
   const router = useRouter()
   const [daos, setDaos] = useState<Dao[] | null>(null)
   const [selectedTabIdx, setSelectedTabIdx] = useState<number>(0)

@@ -1,12 +1,12 @@
 "use client"
 
 import Web3 from "web3"
-import { ABI } from "@/constant"
+import { ABI, CHAIN_ID, CONTRACT_ADDRESS, HTTP_PROVIDER } from "@/constant"
 import React, { createContext, useCallback, useContext, useEffect, useState } from "react"
 import MetaMaskSDK from "@metamask/sdk"
 import { revokeDao, validateDao } from "@/utils/api"
 
-const web3 = new Web3(process.env.NEXT_PUBLIC_HTTP_PROVIDER)
+const web3 = new Web3(process.env.NEXT_PUBLIC_HTTP_PROVIDER || HTTP_PROVIDER)
 new MetaMaskSDK({
   dappMetadata: {
     name: "XCA",
@@ -16,8 +16,8 @@ new MetaMaskSDK({
   extensionOnly: false
 })
 
-const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS
-const defaultChainId = process.env.NEXT_PUBLIC_DEFAULT_CHAIN_ID
+const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS || CONTRACT_ADDRESS
+const defaultChainId = process.env.NEXT_PUBLIC_DEFAULT_CHAIN_ID || CHAIN_ID
 
 var contract = new web3.eth.Contract(ABI, contractAddress)
 

@@ -1,3 +1,8 @@
+export const API_URL="https://rxca.imlab.app/api"
+export const HTTP_PROVIDER="https://eth-sepolia.g.alchemy.com/v2/s65QiLyN-74IJZtUJgtWJiZ9gGzUfxOm"
+export const CONTRACT_ADDRESS="0xcdF367bb783bC7C3681df313364fdf9b1E82A7aD"
+export const CHAIN_ID="0xaa36a7"
+
 export const networkOptions = ["Sepolia"]
 
 export const defaultNetwork = networkOptions[0]
@@ -470,7 +475,7 @@ export const ABI = [
   },
   {
     inputs: [],
-    name: "DEFAULT_ADMIN_ROLE",
+    name: "ADMIN_ROLE",
     outputs: [
       {
         internalType: "bytes32",
