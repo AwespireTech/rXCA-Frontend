@@ -1,24 +1,21 @@
 "use client"
 import React, { useState } from "react"
-import Header from "../components/organisms/header"
-import Title from "../components/atoms/title"
-import lang from "@../../../public/lang/en.json"
-import FormItem from "../components/molecules/form-item"
-import Dropdown from "../components/atoms/dropdown"
-import TextInput from "../components/atoms/input"
-import Button from "../components/atoms/button"
-import {
-  API_URL,
-  defaultFramework,
-  defaultNetwork,
-  frameworkOptions,
-  networkOptions
-} from "../../constant"
+import Header from "@/components/organisms/header"
+import Title from "@/components/atoms/title"
+import lang from "@/lang/en"
+import FormItem from "@/components/molecules/form-item"
+import Dropdown from "@/components/atoms/dropdown"
+import TextInput from "@/components/atoms/input"
+import Button from "@/components/atoms/button"
+import { defaultFramework, defaultNetwork, frameworkOptions, networkOptions } from "../../constant"
 import { createDao } from "@/utils/api"
+import useXCA from "../../hooks/useXCA"
 
 const Register = () => {
+  const { address } = useXCA()
+  const API_URL = process.env.NEXT_PUBLIC_API_URL
   const [network, setNetwork] = useState<string>(defaultNetwork)
-  const [address, setAddress] = useState<string>("")
+  const [daoAddress, setDaoAddress] = useState<string>("")
   const [name, setName] = useState<string>("")
   const [description, setDescription] = useState<string>("")
   const [framework, setFramework] = useState<string>(defaultFramework)
@@ -30,70 +27,76 @@ const Register = () => {
   const [governanceDocument, setGovernanceDocument] = useState<string>("")
 
   const handleRegister = () => {
-    createDao({
-      network,
-      address,
-      name,
-      description,
-      framework,
-      membersUri,
-      proposalsUri,
-      issuersUri,
-      contractsRegUri,
-      managerAddress,
-      governanceDocument
-    })
-      .then((res) => {
-        console.log(res)
+    if (address) {
+      createDao({
+        network,
+        address: daoAddress,
+        name,
+        description,
+        framework,
+        membersUri,
+        proposalsUri,
+        issuersUri,
+        contractsRegUri,
+        managerAddress,
+        governanceDocument,
+        daoUri: `${API_URL}/daos/${daoAddress}`,
+        creator: address
       })
-      .catch((e) => {
-        console.log(e)
-      })
+        .then((res) => {
+          console.log(res)
+        })
+        .catch((e) => {
+          console.log(e)
+        })
+    }
   }
 
   return (
     <>
-      <Header />
       <Title>{lang.page.register.title}</Title>
-      <div className="flex w-[90%] flex-col gap-6 rounded-md border border-highlight p-8 xl:w-[70%]">
+      <div className="flex w-full flex-col gap-6 rounded-md border border-highlight p-8">
         <FormItem label={lang.dao.address.label} isRequired>
           <div className="flex flex-row justify-end gap-8">
             <Dropdown
-              id="contractAddrNetwork"
+              id="input-network"
               options={networkOptions}
               selectedOption={network}
               onSelect={(option: string) => setNetwork(option)}
             />
             <TextInput
-              id="contract"
+              id="input-daoAddress"
               placeholder={lang.dao.address.placeholder}
-              value={address}
-              onChange={(value) => setAddress(value)}
+              value={daoAddress}
+              isRequired
+              onChange={(value) => setDaoAddress(value)}
             />
           </div>
         </FormItem>
 
         <FormItem label={lang.dao.name.label} isRequired>
           <TextInput
-            id="name"
+            id="input-name"
             placeholder={lang.dao.name.placeholder}
             value={name}
+            isRequired
             onChange={(value) => setName(value)}
           />
         </FormItem>
 
         <FormItem label={lang.dao.desc.label} isRequired>
           <TextInput
-            id="name"
+            id="input-desc"
             placeholder={lang.dao.desc.placeholder}
             value={description}
+            isRequired
             onChange={(value) => setDescription(value)}
           />
         </FormItem>
 
         <FormItem label={lang.dao.framework.label} isRequired>
           <Dropdown
-            id="framework"
+            id="input-framework"
             options={frameworkOptions}
             selectedOption={framework}
             onSelect={(option: string) => setFramework(option)}
@@ -103,34 +106,37 @@ const Register = () => {
 
         <FormItem label={lang.dao.membersUri.label} isRequired>
           <TextInput
-            id="membersUri"
+            id="input-membersUri"
             placeholder={lang.dao.membersUri.placeholder}
             value={membersUri}
+            isRequired
             onChange={(value) => setMembersUri(value)}
           />
         </FormItem>
 
         <FormItem label={lang.dao.proposalsUri.label} isRequired>
           <TextInput
-            id="proposalsUri"
+            id="input-proposalsUri"
             placeholder={lang.dao.proposalsUri.placeholder}
             value={proposalsUri}
+            isRequired
             onChange={(value) => setProposalsUri(value)}
           />
         </FormItem>
 
         <FormItem label={lang.dao.issuersUri.label} isRequired>
           <TextInput
-            id="issuersUri"
+            id="input-issuersUri"
             placeholder={lang.dao.issuersUri.placeholder}
             value={issuersUri}
+            isRequired
             onChange={(value) => setIssuersUri(value)}
           />
         </FormItem>
 
         <FormItem label={lang.dao.contractsRegUri.label}>
           <TextInput
-            id="contractsRegUri"
+            id="input-contractsRegUri"
             placeholder={lang.dao.contractsRegUri.placeholder}
             value={contractsRegUri}
             onChange={(value) => setContractsRegUri(value)}
@@ -139,7 +145,7 @@ const Register = () => {
 
         <FormItem label={lang.dao.managerAddress.label}>
           <TextInput
-            id="manager"
+            id="input-manager"
             placeholder={lang.dao.managerAddress.placeholder}
             value={managerAddress}
             onChange={(value) => setManagerAddr(value)}
@@ -148,7 +154,7 @@ const Register = () => {
 
         <FormItem label={lang.dao.governanceDocument.label}>
           <TextInput
-            id="governanceDocument"
+            id="input-governanceDocument"
             placeholder={lang.dao.governanceDocument.placeholder}
             value={governanceDocument}
             onChange={(value) => setGovernanceDocument(value)}
@@ -157,11 +163,19 @@ const Register = () => {
       </div>
 
       <div className="flex w-full flex-col items-center gap-4">
-        <Button id="register-btn" variant="primary" size="large" onClick={handleRegister}>
+        <Button
+          id="button-register"
+          variant="primary"
+          size="extra-large"
+          // TODO: validate isRequired fields is filled (useMemo?)
+          disabled={false}
+          onClick={handleRegister}
+        >
           {lang.action.register.short}
         </Button>
 
-        <div>{lang.hint.register}</div>
+        {/* // TODO: success or fail popup */}
+        <span>{lang.hint.register}</span>
       </div>
     </>
   )

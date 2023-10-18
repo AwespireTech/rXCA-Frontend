@@ -1,15 +1,6 @@
 "use client"
 
 import React, { useState } from "react"
-import Button from "./components/atoms/button"
-import Filter from "./components/atoms/filter"
-import Title from "./components/atoms/title"
-import { TextInput } from "./components/atoms/input"
-import { Dropdown } from "./components/atoms/dropdown"
-import { FormItem } from "./components/molecules/form-item"
-import DAOView from "./components/organisms/dao-view"
-import Header from "./components/organisms/header"
-import { testDao } from "../constant"
 import Explore from "./explore/page"
 
 export default function Home() {
@@ -65,11 +56,11 @@ export default function Home() {
     //       full
     //     />
     //   </FormItem>
-    //   <DAOView dao={testDao}>
+    //   <DaoView dao={testDao}>
     //     <Button id="id" variant="secondary" size="normal" onClick={() => console.log("clicked")}>
     //       Click me
     //     </Button>
-    //   </DAOView>
+    //   </DaoView>
     // </>
   )
 }

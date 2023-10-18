@@ -19,7 +19,8 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@/lang/en": ["./public/lang/en.json"]
     }
   },
   "include": [

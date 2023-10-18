@@ -1,4 +1,5 @@
 export declare interface Dao {
+  id: number
   address: string
   network: string
   name: string
@@ -12,6 +13,25 @@ export declare interface Dao {
   governanceDocument?: string
   state: number
   daoUri: string
+  tokenId: number
+  creator: string
 }
 
-export type CreateDaoPayload = Omit<Dao, "state" | "daoUri">
+export default Dao
+
+export type GetDaosReponse = Dao[]
+export type GetDaosParams = {
+  name?: string
+  address?: string
+  state?: string
+}
+
+export type CreateDaoPayload = Omit<Dao, "id" | "state" | "tokenId">
+export type CreateDaoResponse = Dao
+
+export type DeleteDaoResponse = "OK"
+
+export type ValidateDaoPayload = {
+  validate: boolean
+  opHash?: string
+}

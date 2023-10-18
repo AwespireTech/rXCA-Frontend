@@ -50,13 +50,15 @@
     }
   },
   "action": {
+    "search": "Search",
     "register": {
       "short": "Register",
       "full": "Register new DAO"
     },
     "cancel": "Cancel",
     "deny": "Deny",
-    "approve": "Approve"
+    "approve": "Approve",
+    "revoke": "Revoke"
   },
   "hint": {
     "register": "Registering will generate a DAO URI",

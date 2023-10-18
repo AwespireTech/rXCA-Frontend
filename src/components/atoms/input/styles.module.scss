@@ -22,4 +22,17 @@
       )
       5;
   }
+
+  &.error {
+    border-image: linear-gradient(
+        to left,
+        theme("colors.highlight") 0% 0%,
+        theme("colors.error") 0% 100%
+      )
+      5;
+
+    &:focus {
+      border-image: linear-gradient(to left, theme("colors.error") 0% 100%) 5;
+    }
+  }
 }
