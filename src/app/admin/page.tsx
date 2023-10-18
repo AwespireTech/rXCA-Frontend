@@ -12,7 +12,7 @@ import { DaoStates, daoStatesTab } from "@/constant"
 import Title from "@/components/atoms/title"
 import { useRouter } from "next/navigation"
 
-export const Admin = () => {
+const Admin = () => {
   const { address, mint, burn } = useXCA()
   const API_URL = process.env.NEXT_PUBLIC_API_URL
   const router = useRouter()

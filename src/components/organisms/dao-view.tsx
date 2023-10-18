@@ -42,7 +42,8 @@ export const DaoView = ({ dao, children }: { dao: Dao; children?: React.ReactNod
         {/* // TODO: link to address (https://sepolia.etherscan.io/address/${dao.address}) */}
         {/* // TODO: line clamp */}
         <Row label={lang.dao.address.label} value={dao.address} />
-        <Row label={lang.dao.daoUri.label} value={dao.daoUri!} />
+        {/* // TODO: add dao uri */}
+        {/* <Row label={lang.dao.daoUri.label} value={dao.daoUri!} /> */}
         <Row label={lang.dao.managerAddress.label} value={dao.managerAddress || "None"} />
         <Row label={lang.dao.network.label} value={dao.network} />
       </div>
