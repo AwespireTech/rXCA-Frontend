@@ -7,8 +7,8 @@ export const Filter = ({
   selectedIdx?: number
   onSelect: (idx: number) => void
 }) => {
-  let normal = "border-white bg-transparent text-white"
-  let chosen = "border-highlight bg-white text-highlight font-bold"
+  const normal = "border-white bg-transparent text-white"
+  const chosen = "border-highlight bg-white text-highlight font-bold"
 
   return (
     <div className="flex flex-row items-center gap-4">

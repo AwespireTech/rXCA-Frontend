@@ -1,8 +1,7 @@
 "use client"
 import React, { useState } from "react"
-import Header from "@/components/organisms/header"
 import Title from "@/components/atoms/title"
-import lang from "@/lang/en"
+import lang from "@/lang/zh"
 import FormItem from "@/components/molecules/form-item"
 import Dropdown from "@/components/atoms/dropdown"
 import TextInput from "@/components/atoms/input"
@@ -10,9 +9,21 @@ import Button from "@/components/atoms/button"
 import { defaultFramework, defaultNetwork, frameworkOptions, networkOptions } from "../../constant"
 import { createDao } from "@/utils/api"
 import useXCA from "../../hooks/useXCA"
+import { DaoExistsError } from "@/interfaces/dao.interface"
+import { CustomDialog } from "@/components/molecules/custom-dialog"
+import { useRouter } from "next/navigation"
+
+enum Status {
+  New,
+  Success,
+  DuplicateError,
+  Fail
+}
 
 const Register = () => {
   const { address } = useXCA()
+  const router = useRouter()
+  const [status, setStatus] = useState<Status>(Status.New)
   const [network, setNetwork] = useState<string>(defaultNetwork)
   const [daoAddress, setDaoAddress] = useState<string>("")
   const [name, setName] = useState<string>("")
@@ -25,8 +36,42 @@ const Register = () => {
   const [managerAddress, setManagerAddr] = useState<string>("")
   const [governanceDocument, setGovernanceDocument] = useState<string>("")
 
+  const validateRequired = () => {
+    if (!daoAddress.trim()) {
+      alert(lang.dao.address.placeholder)
+      return false
+    }
+
+    if (!name.trim()) {
+      alert(lang.dao.name.placeholder)
+      return false
+    }
+
+    if (!description.trim()) {
+      alert(lang.dao.desc.placeholder)
+      return false
+    }
+
+    if (!membersUri.trim()) {
+      alert(lang.dao.membersUri.placeholder)
+      return false
+    }
+
+    if (!proposalsUri.trim()) {
+      alert(lang.dao.proposalsUri.placeholder)
+      return false
+    }
+
+    if (!issuersUri.trim()) {
+      alert(lang.dao.issuersUri.placeholder)
+      return false
+    }
+
+    return true
+  }
+
   const handleRegister = () => {
-    if (address) {
+    if (address && validateRequired()) {
       createDao({
         network,
         address: daoAddress,
@@ -39,21 +84,46 @@ const Register = () => {
         contractsRegUri,
         managerAddress,
         governanceDocument,
-        // daoUri: `${API_URL}/daos/${daoAddress}`,
         creator: address
       })
         .then((res) => {
-          console.log(res)
+          if (res.error === DaoExistsError) {
+            setStatus(Status.DuplicateError)
+          } else {
+            setStatus(Status.Success)
+          }
         })
         .catch((e) => {
           console.log(e)
+          if (status === Status.DuplicateError) return
+          setStatus(Status.Fail)
         })
+    }
+  }
+
+  const handleDialogOnClose = () => {
+    if (status === Status.Success) {
+      router.push("/my-page")
+      return
+    }
+
+    if (status === Status.DuplicateError) {
+      setStatus(Status.New)
+      setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: "smooth" })
+      }, 100)
+      return
+    }
+
+    if (status === Status.Fail) {
+      setStatus(Status.New)
+      return
     }
   }
 
   return (
     <>
-      <Title>{lang.page.register.title}</Title>
+      <Title>{lang.page.register.title.full}</Title>
       <div className="flex w-full flex-col gap-6 rounded-md border border-highlight p-8">
         <FormItem label={lang.dao.address.label} isRequired>
           <div className="flex flex-row justify-end gap-8">
@@ -67,7 +137,6 @@ const Register = () => {
               id="input-daoAddress"
               placeholder={lang.dao.address.placeholder}
               value={daoAddress}
-              isRequired
               onChange={(value) => setDaoAddress(value)}
             />
           </div>
@@ -78,7 +147,6 @@ const Register = () => {
             id="input-name"
             placeholder={lang.dao.name.placeholder}
             value={name}
-            isRequired
             onChange={(value) => setName(value)}
           />
         </FormItem>
@@ -88,7 +156,6 @@ const Register = () => {
             id="input-desc"
             placeholder={lang.dao.desc.placeholder}
             value={description}
-            isRequired
             onChange={(value) => setDescription(value)}
           />
         </FormItem>
@@ -108,7 +175,6 @@ const Register = () => {
             id="input-membersUri"
             placeholder={lang.dao.membersUri.placeholder}
             value={membersUri}
-            isRequired
             onChange={(value) => setMembersUri(value)}
           />
         </FormItem>
@@ -118,7 +184,6 @@ const Register = () => {
             id="input-proposalsUri"
             placeholder={lang.dao.proposalsUri.placeholder}
             value={proposalsUri}
-            isRequired
             onChange={(value) => setProposalsUri(value)}
           />
         </FormItem>
@@ -128,7 +193,6 @@ const Register = () => {
             id="input-issuersUri"
             placeholder={lang.dao.issuersUri.placeholder}
             value={issuersUri}
-            isRequired
             onChange={(value) => setIssuersUri(value)}
           />
         </FormItem>
@@ -166,16 +230,33 @@ const Register = () => {
           id="button-register"
           variant="primary"
           size="extra-large"
-          // TODO: validate isRequired fields is filled (useMemo?)
-          disabled={false}
-          onClick={handleRegister}
+          onClick={() => handleRegister()}
         >
           {lang.action.register.short}
         </Button>
 
-        {/* // TODO: success or fail popup */}
         <span>{lang.hint.register}</span>
       </div>
+
+      <CustomDialog isOpen={status !== Status.New} onClose={() => handleDialogOnClose()}>
+        <>
+          <p className="text-xl font-medium">
+            {status === Status.Success
+              ? lang.dialog.createSuccess
+              : status === Status.DuplicateError
+              ? lang.dialog.duplicateError
+              : status === Status.Fail && lang.dialog.fail}
+          </p>
+          <Button
+            id="button-dialog"
+            variant="primary"
+            size="normal"
+            onClick={() => handleDialogOnClose()}
+          >
+            {status === Status.Success ? lang.action.redirectToMyPage : lang.action.yes}
+          </Button>
+        </>
+      </CustomDialog>
     </>
   )
 }

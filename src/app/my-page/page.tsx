@@ -1,36 +1,48 @@
 "use client"
 import Title from "@/components/atoms/title"
-import lang from "@/lang/en"
+import lang from "@/lang/zh"
 import Button from "@/components/atoms/button"
-import React, { useEffect, useState } from "react"
+import React, { useCallback, useEffect, useState } from "react"
 import Dao from "@/interfaces/dao.interface"
-import DaoView from "@/components/organisms/dao-view"
+import DaoPreview from "@/components/organisms/dao-view"
 import { deleteDao, getDaos } from "@/utils/api"
 import useXCA from "@/hooks/useXCA"
 import TabGroup from "@/components/molecules/tab-group"
-import { daoStatesTab } from "@/constant"
 import { useRouter } from "next/navigation"
+import { CustomDialog } from "@/components/molecules/custom-dialog"
 
 const MyPage = () => {
   const { address } = useXCA()
   const router = useRouter()
   const [daos, setDaos] = useState<Dao[] | null>(null)
   const [selectedTabIdx, setSelectedTabIdx] = useState<number>(0)
+  const [daoToCancel, setDaoToCancel] = useState<Dao | null>(null)
+
+  const fetchDaos = useCallback(() => {
+    if (!address) return
+
+    getDaos({
+      creator: address,
+      state: selectedTabIdx.toString()
+    })
+      .then((daos) => {
+        setDaos(daos)
+      })
+      .catch((e) => {
+        console.log(e)
+      })
+  }, [address, selectedTabIdx])
 
   useEffect(() => {
-    if (address) {
-      getDaos({
-        address,
-        state: selectedTabIdx.toString()
-      })
-        .then((daos) => {
-          setDaos(daos)
-        })
-        .catch((e) => {
-          console.log(e)
-        })
-    }
-  }, [address, selectedTabIdx])
+    fetchDaos()
+  }, [fetchDaos])
+
+  const handleDelete = (dao: Dao) => {
+    deleteDao(dao.address).then(() => {
+      setDaoToCancel(null)
+      fetchDaos()
+    })
+  }
 
   return (
     <>
@@ -50,34 +62,62 @@ const MyPage = () => {
       <div className="h-0.5 w-full bg-white" />
 
       <TabGroup
-        items={daoStatesTab}
+        items={Object.values(lang.filter)}
         selectedIdx={selectedTabIdx}
         onSelect={(idx) => {
           setSelectedTabIdx(idx)
         }}
       />
 
-      <div className="grid w-full grid-cols-3 gap-8">
+      <div className="grid w-full grid-cols-[repeat(auto-fill,minmax(320px,1fr))] justify-center gap-8">
         {daos &&
           daos.map((dao, i) => (
-            <DaoView dao={dao} key={i}>
+            <DaoPreview dao={dao} key={i}>
               <Button
                 id={`cancel-${i}`}
                 variant="secondary"
                 size="normal"
                 onClick={() => {
-                  deleteDao(dao.address).then(() => {
-                    getDaos().then((daos) => {
-                      setDaos(daos)
-                    })
-                  })
+                  setDaoToCancel(dao)
                 }}
               >
                 {lang.action.cancel}
               </Button>
-            </DaoView>
+            </DaoPreview>
           ))}
       </div>
+
+      {daoToCancel && (
+        <CustomDialog isOpen={daoToCancel !== null} onClose={() => setDaoToCancel(null)}>
+          <>
+            <p className="text-xl font-medium">
+              {lang.dialog.confirm
+                .replace("{action}", lang.action.cancel)
+                .replace("{name}", daoToCancel.name)}
+            </p>
+
+            <div className="flex flex-row gap-4">
+              <Button
+                id="button-dialog-cancel"
+                variant="secondary"
+                size="normal"
+                onClick={() => setDaoToCancel(null)}
+              >
+                {lang.action.no}
+              </Button>
+
+              <Button
+                id="button-dialog-confirm"
+                variant="primary"
+                size="normal"
+                onClick={() => handleDelete(daoToCancel)}
+              >
+                {lang.action.yes}
+              </Button>
+            </div>
+          </>
+        </CustomDialog>
+      )}
     </>
   )
 }

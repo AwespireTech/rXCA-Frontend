@@ -75,7 +75,5 @@ export const authAddress = async (address: string) => {
   const res = await fetch(`${API_URL}/auth/${address}`)
   const json = await res.json()
 
-  console.log(json)
-
   return json.isAdmin
 }

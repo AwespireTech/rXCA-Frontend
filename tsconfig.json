@@ -20,7 +20,8 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
-      "@/lang/en": ["./public/lang/en.json"]
+      "@/lang/en": ["./public/lang/en.json"],
+      "@/lang/zh": ["./public/lang/zh.json"]
     }
   },
   "include": [

@@ -21,12 +21,13 @@ export default Dao
 export type GetDaosReponse = Dao[]
 export type GetDaosParams = {
   search?: string
-  address?: string
+  creator?: string
   state?: string
 }
 
 export type CreateDaoPayload = Omit<Dao, "id" | "state" | "tokenId">
 export type CreateDaoResponse = Dao
+export const DaoExistsError = "DAO already exists"
 
 export type DeleteDaoResponse = "OK"
 

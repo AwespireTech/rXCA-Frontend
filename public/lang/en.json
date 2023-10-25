@@ -62,7 +62,8 @@
   },
   "hint": {
     "register": "Registering will generate a DAO URI",
-    "optional": "optional"
+    "optional": "optional",
+    "none": "none"
   },
   "filter": {
     "pending": "Pending DAOs",
@@ -80,7 +81,10 @@
       "description": "Maybe some description"
     },
     "register": {
-      "title": "Register your DAO",
+      "title": {
+        "short": "Register",
+        "full": "Register new DAO"
+      },
       "description": "Maybe some description"
     },
     "myPage": {

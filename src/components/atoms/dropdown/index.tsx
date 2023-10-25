@@ -11,7 +11,6 @@ export const Dropdown = ({
   id: string
   options: string[]
   selectedOption: string
-  // selectedIdx: number,
   onSelect: (option: string) => void
   full?: boolean
 }) => {

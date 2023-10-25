@@ -1,0 +1,111 @@
+{
+  "dao": {
+    "network": {
+      "label": "網路",
+      "placeholder": "請選網路"
+    },
+    "address": {
+      "label": "合約地址",
+      "placeholder": "請輸入合約地址"
+    },
+    "name": {
+      "label": "名稱",
+      "placeholder": "請輸入名稱"
+    },
+    "desc": {
+      "label": "說明",
+      "placeholder": "請輸入說明"
+    },
+    "framework": {
+      "label": "組織類型",
+      "placeholder": "請輸入組織類型"
+    },
+    "membersUri": {
+      "label": "成員 URI",
+      "placeholder": "請輸入成員 URI"
+    },
+    "proposalsUri": {
+      "label": "提案 URI",
+      "placeholder": "請輸入提案 URI"
+    },
+    "issuersUri": {
+      "label": "發起人 URI",
+      "placeholder": "請輸入發起人 URI"
+    },
+    "contractsRegUri": {
+      "label": "合約登記 URI",
+      "placeholder": "請輸入合約登記 URI"
+    },
+    "managerAddress": {
+      "label": "管理員地址 URI",
+      "placeholder": "請輸入管理員地址 URI"
+    },
+    "governanceDocument": {
+      "label": "治理文件",
+      "placeholder": "請輸入治理文件"
+    },
+    "daoUri": {
+      "label": "DAO URI",
+      "placeholder": "請輸入 DAO URI"
+    }
+  },
+  "action": {
+    "search": "搜尋",
+    "register": {
+      "short": "註冊",
+      "full": "註冊新的 DAO"
+    },
+    "cancel": "取消",
+    "deny": "拒絕",
+    "approve": "接受",
+    "revoke": "撤銷",
+    "confirm": "確認",
+    "yes": "是",
+    "no": "否",
+    "redirectToMyPage": "前往個人頁面"
+  },
+  "hint": {
+    "register": "註冊後將生成一個 DAO URI",
+    "optional": "選填",
+    "none": "無"
+  },
+  "filter": {
+    "pending": "待審核 DAOs",
+    "approved": "已通過 DAOs",
+    "denied": "已駁回 DAOs"
+  },
+  "wallet": {
+    "connect": "連結錢包",
+    "disconnect": "取消連結",
+    "myPage": "個人頁面"
+  },
+  "page": {
+    "explore": {
+      "title": "探索",
+      "description": ""
+    },
+    "register": {
+      "title": {
+        "short": "註冊",
+        "full": "註冊新的 DAO"
+      },
+      "description": ""
+    },
+    "myPage": {
+      "title": "個人頁面",
+      "description": ""
+    },
+    "approval": {
+      "title": "審核",
+      "description": ""
+    }
+  },
+  "dialog": {
+    "createSuccess": "註冊成功！",
+    "duplicateError": "DAO 已存在，請重新輸入合約地址",
+    "fail": "發生錯誤，請稍後再試",
+    "confirm": "確定要{action} {name} 嗎？",
+    "loading": "處理中...",
+    "success": "成功！"
+  }
+}

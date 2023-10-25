@@ -19,15 +19,25 @@ new MetaMaskSDK({
 const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS || CONTRACT_ADDRESS
 const defaultChainId = process.env.NEXT_PUBLIC_DEFAULT_CHAIN_ID || CHAIN_ID
 
-var contract = new web3.eth.Contract(ABI, contractAddress)
+const contract = new web3.eth.Contract(ABI, contractAddress)
 
 type XCAContextType = {
   address: string | null
   connectMetamask: () => Promise<void>
   disconnectMetamask: () => Promise<void>
   setChainIfIncorrect: () => Promise<void>
-  mint: (toAddr: string, tokenUri: string) => Promise<any>
-  burn: (toAddr: string, tokenId: number) => Promise<any>
+  mint: (
+    toAddr: string,
+    tokenUri: string,
+    onSuccess: () => void,
+    onError: () => void
+  ) => Promise<any>
+  burn: (
+    toAddr: string,
+    tokenId: number,
+    onSuccess: () => void,
+    onError: () => void
+  ) => Promise<any>
 }
 
 export const XCAContext = createContext<XCAContextType>({
@@ -43,7 +53,6 @@ export function XCAProvider({ children }: { children: React.ReactNode }) {
   const [address, setAddress] = useState<string | null>(null)
 
   const setDefaultAddress = useCallback(async () => {
-    console.log("setDefaultAddress")
     await setChainIfIncorrect()
 
     if (window.ethereum) {
@@ -53,7 +62,7 @@ export function XCAProvider({ children }: { children: React.ReactNode }) {
           params: []
         })
         .then((res) => {
-          let connectedAddress = res ? res[0 as keyof typeof res] : null
+          const connectedAddress = res ? res[0 as keyof typeof res] : null
 
           if (connectedAddress) {
             setAddress(Web3.utils.toChecksumAddress(connectedAddress))
@@ -70,7 +79,6 @@ export function XCAProvider({ children }: { children: React.ReactNode }) {
   }, [setDefaultAddress])
 
   const connectMetamask = async () => {
-    console.log("connecting")
     await setChainIfIncorrect()
 
     if (!address && window.ethereum) {
@@ -80,7 +88,7 @@ export function XCAProvider({ children }: { children: React.ReactNode }) {
           params: []
         })
         .then((res) => {
-          let connectedAddress = res ? res[0 as keyof typeof res] : null
+          const connectedAddress = res ? res[0 as keyof typeof res] : null
 
           if (connectedAddress) {
             setAddress(Web3.utils.toChecksumAddress(connectedAddress))
@@ -98,7 +106,6 @@ export function XCAProvider({ children }: { children: React.ReactNode }) {
   }
 
   const setChainIfIncorrect = async () => {
-    console.log("setChainIfIncorrect")
     if (window.ethereum) {
       await window.ethereum
         .request({
@@ -106,7 +113,7 @@ export function XCAProvider({ children }: { children: React.ReactNode }) {
           params: []
         })
         .then((res) => {
-          let connectedChainId = res
+          const connectedChainId = res
 
           if (window.ethereum && connectedChainId !== defaultChainId) {
             window.ethereum
@@ -126,7 +133,7 @@ export function XCAProvider({ children }: { children: React.ReactNode }) {
   }
 
   const waitForTransactionReceipt = async (txHash: string, callback: () => Promise<void>) => {
-    let interval = setInterval(async () => {
+    const interval = setInterval(async () => {
       web3.eth
         .getTransactionReceipt(txHash)
         .then((res) => {
@@ -145,17 +152,18 @@ export function XCAProvider({ children }: { children: React.ReactNode }) {
           }
         })
         .catch(() => {
-          // Ignore transaction pending error
+          // ignore transaction pending error only
         })
     }, 1000)
   }
 
-  const mint = async (toAddr: string, tokenUri: string) => {
-    console.log("mint")
-    console.log(toAddr)
-    console.log(tokenUri)
-
-    let params = [
+  const mint = async (
+    toAddr: string,
+    tokenUri: string,
+    onSuccess: () => void,
+    onError: () => void
+  ) => {
+    const params = [
       {
         to: contractAddress,
         from: address,
@@ -172,27 +180,33 @@ export function XCAProvider({ children }: { children: React.ReactNode }) {
           params: params
         })
         .then(async (opHash) => {
-          console.log(opHash)
-
           setTimeout(() => {
-            waitForTransactionReceipt(opHash as string, () =>
+            waitForTransactionReceipt(opHash as string, async () =>
               validateDao(toAddr, {
                 validate: true,
                 opHash: opHash as string
+              }).then(() => {
+                onSuccess()
               })
             )
           }, 5000)
 
           return opHash
         })
-        .then((res) => {
-          console.log(res)
+        .catch((err) => {
+          console.log(err)
+          onError()
         })
     }
   }
 
-  const burn = async (toAddr: string, tokenId: number) => {
-    let params = [
+  const burn = async (
+    toAddr: string,
+    tokenId: number,
+    onSuccess: () => void,
+    onError: () => void
+  ) => {
+    const params = [
       {
         to: contractAddress,
         from: address,
@@ -209,20 +223,21 @@ export function XCAProvider({ children }: { children: React.ReactNode }) {
           params: params
         })
         .then(async (opHash) => {
-          console.log(opHash)
-
           setTimeout(() => {
             waitForTransactionReceipt(opHash as string, () =>
               revokeDao(toAddr, {
                 opHash: opHash as string
               })
-            )
+            ).then(() => {
+              onSuccess()
+            })
           }, 5000)
 
           return opHash
         })
-        .then((res) => {
-          console.log(res)
+        .catch((err) => {
+          console.log(err)
+          onError()
         })
     }
   }

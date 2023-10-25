@@ -1,24 +1,22 @@
 "use client"
 import React, { useEffect, useState } from "react"
-import Header from "@/components/organisms/header"
 import Title from "@/components/atoms/title"
-import lang from "@/lang/en"
+import lang from "@/lang/zh"
 import { getDaos } from "@/utils/api"
-import DaoView from "@/components/organisms/dao-view"
+import DaoPreview, { DaoView } from "@/components/organisms/dao-view"
 import { Dao } from "@/interfaces/dao.interface"
-import useXCA from "@/hooks/useXCA"
 import TextInput from "@/components/atoms/input"
 import Button from "@/components/atoms/button"
+import { CustomDialog } from "@/components/molecules/custom-dialog"
 
 const Explore = () => {
-  const { address, burn, mint } = useXCA()
   const [daos, setDaos] = useState<Dao[] | null>(null)
   const [search, setSearch] = useState<string>("")
+  const [daoToExpand, setDaoToExpand] = useState<Dao | null>(null)
 
   useEffect(() => {
     getDaos()
       .then((daos) => {
-        console.log(daos)
         setDaos(daos)
       })
       .catch((e) => {
@@ -31,7 +29,6 @@ const Explore = () => {
       search
     })
       .then((daos) => {
-        console.log(daos)
         setDaos(daos)
       })
       .catch((e) => {
@@ -63,9 +60,24 @@ const Explore = () => {
         </Button>
       </div>
 
-      <div className="grid w-full grid-cols-3 gap-8">
-        {daos && daos.map((dao, i) => <DaoView dao={dao} key={i} />)}
+      <div className="grid w-full grid-cols-[repeat(auto-fill,minmax(320px,1fr))] justify-center gap-8">
+        {daos &&
+          daos.map((dao, i) => (
+            <DaoPreview
+              dao={dao}
+              key={i}
+              onExpand={() => {
+                setDaoToExpand(dao)
+              }}
+            />
+          ))}
       </div>
+
+      {daoToExpand && (
+        <CustomDialog isOpen={daoToExpand != null} onClose={() => setDaoToExpand(null)}>
+          <DaoView dao={daoToExpand} />
+        </CustomDialog>
+      )}
     </>
   )
 }
