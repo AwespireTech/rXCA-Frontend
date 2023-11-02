@@ -11,6 +11,7 @@ import { API_URL, DaoStates } from "@/constant"
 import Title from "@/components/atoms/title"
 import { useRouter } from "next/navigation"
 import { CustomDialog } from "@/components/molecules/custom-dialog"
+import DaoList from "@/components/organisms/dao-list"
 
 enum DialogType {
   Hidden,
@@ -110,7 +111,8 @@ const Admin = () => {
     <>
       {!address && <div className="fixed top-1/2 translate-y-1/2">Please connect your wallet</div>}
 
-      {address && auth && (
+      <DaoList filterState filterCreator type="admin" />
+      {/* {address && auth && (
         <>
           <Title>{lang.page.approval.title}</Title>
           <TabGroup
@@ -278,7 +280,7 @@ const Admin = () => {
             </CustomDialog>
           )}
         </>
-      )}
+      )} */}
     </>
   )
 }
