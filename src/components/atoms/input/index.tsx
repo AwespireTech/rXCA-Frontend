@@ -18,8 +18,8 @@ export const TextInput = ({
       className={styles.textInput}
       placeholder={placeholder}
       value={value}
-      onChange={(event) => {
-        onChange(event.target.value)
+      onChange={(e) => {
+        onChange(e.target.value)
       }}
     />
   )
