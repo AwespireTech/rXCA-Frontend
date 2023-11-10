@@ -3,6 +3,7 @@ import lang from "@/lang/zh"
 import OpenInNew from "../atoms/open-in-new"
 import { API_URL, ETHERSCAN_LINK } from "@/constant"
 import { shortenWallet } from "@/utils/string"
+import Image from "next/image"
 
 const Row = ({
   label,
@@ -60,10 +61,12 @@ const Row = ({
 export const DaoPreview = ({
   dao,
   onExpand = () => {},
+  showState = false,
   children
 }: {
   dao: Dao
   onExpand?: () => void
+  showState?: boolean
   children?: React.ReactNode
 }) => {
   return (
@@ -75,7 +78,27 @@ export const DaoPreview = ({
       <div className="flex flex-col gap-6">
         <div className="flex flex-col text-xl">
           <div className="flex flex-row items-center justify-between gap-8">
-            <p className="text-deepgray">{`#${dao.id}`}</p>
+            <div className="flex w-full flex-row items-end gap-2">
+              <p className="leading-5 text-deepgray">{`#${dao.id}`}</p>
+              {showState && (
+                <div
+                  className={`w-fit rounded-md bg-white px-1 py-0.5 text-xs leading-3 ${
+                    dao.state === 0
+                      ? "text-label-pending"
+                      : dao.state === 1
+                      ? "text-label-approved"
+                      : "text-label-denied"
+                  }`}
+                >
+                  {dao.state === 0
+                    ? "申請中"
+                    : dao.state === 1
+                    ? "已通過"
+                    : dao.state === 2 && "已駁回"}
+                </div>
+              )}
+            </div>
+
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -167,8 +190,27 @@ export const DaoPreview = ({
 export const DaoView = ({ dao }: { dao: Dao }) => {
   return (
     <div className="flex w-full flex-col gap-4">
+      {dao.state === 1 && (
+        <Image src="/images/token.png" width={100} height={100} alt="token" className="m-auto" />
+      )}
+
       <div className="flex flex-col gap-0 text-xl">
-        <p className="text-deepgray">{`#${dao.id}`}</p>
+        {/* <p className="text-deepgray">{`#${dao.id}`}</p> */}
+        <div className="flex w-full flex-row items-end gap-2">
+          <p className="leading-5 text-deepgray">{`#${dao.id}`}</p>
+          <div
+            className={`w-fit rounded-md bg-white px-1 py-0.5 text-xs leading-3 ${
+              dao.state === 0
+                ? "text-label-pending"
+                : dao.state === 1
+                ? "text-label-approved"
+                : "text-label-denied"
+            }`}
+          >
+            {dao.state === 0 ? "申請中" : dao.state === 1 ? "已通過" : dao.state === 2 && "已駁回"}
+          </div>
+        </div>
+
         <div className="line-clamp-1 break-words">{dao.name}</div>
       </div>
 

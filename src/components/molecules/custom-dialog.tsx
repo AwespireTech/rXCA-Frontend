@@ -20,12 +20,14 @@ export const CustomDialog = ({
           boxShadow: "none",
           borderRadius: 12,
           margin: "0",
-          padding: "0"
+          padding: "0",
+          height: "85%",
+          width: "90%"
         }
       }}
     >
       <DialogContent>
-        <div className="relative flex w-full flex-col items-center gap-4 overflow-hidden rounded-md border border-secondary bg-primary p-8 pt-14 text-white">
+        <div className="absolute left-1/2 top-1/2 box-border max-h-full w-full translate-x-[-50%] translate-y-[-50%] overflow-hidden rounded-md border border-secondary bg-primary p-8 pt-14 text-white">
           <div className="absolute right-4 top-4">
             <button onClick={onClose}>
               <svg className="h-4 w-4 stroke-white stroke-2 duration-300 ease-in-out hover:stroke-highlight">
@@ -34,7 +36,9 @@ export const CustomDialog = ({
               </svg>
             </button>
           </div>
-          {children}
+          <div className="relative flex h-full w-full flex-col items-center gap-4 overflow-scroll">
+            {children}
+          </div>
         </div>
       </DialogContent>
     </Dialog>

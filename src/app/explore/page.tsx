@@ -69,6 +69,7 @@ const Explore = () => {
               onExpand={() => {
                 setDaoToExpand(dao)
               }}
+              showState
             />
           ))}
       </div>

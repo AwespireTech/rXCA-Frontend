@@ -4,7 +4,7 @@ import lang from "@/lang/zh"
 import Button from "@/components/atoms/button"
 import React, { useCallback, useEffect, useState } from "react"
 import Dao from "@/interfaces/dao.interface"
-import DaoPreview from "@/components/organisms/dao-view"
+import DaoPreview, { DaoView } from "@/components/organisms/dao-view"
 import { deleteDao, getDaos } from "@/utils/api"
 import useXCA from "@/hooks/useXCA"
 import TabGroup from "@/components/molecules/tab-group"
@@ -17,6 +17,7 @@ const MyPage = () => {
   const [daos, setDaos] = useState<Dao[] | null>(null)
   const [selectedTabIdx, setSelectedTabIdx] = useState<number>(0)
   const [daoToCancel, setDaoToCancel] = useState<Dao | null>(null)
+  const [daoToExpand, setDaoToExpand] = useState<Dao | null>(null)
 
   const fetchDaos = useCallback(() => {
     if (!address) return
@@ -72,7 +73,13 @@ const MyPage = () => {
       <div className="grid w-full grid-cols-[repeat(auto-fill,minmax(320px,1fr))] justify-center gap-8">
         {daos &&
           daos.map((dao, i) => (
-            <DaoPreview dao={dao} key={i}>
+            <DaoPreview
+              dao={dao}
+              key={i}
+              onExpand={() => {
+                setDaoToExpand(dao)
+              }}
+            >
               <Button
                 id={`cancel-${i}`}
                 variant="secondary"
@@ -116,6 +123,12 @@ const MyPage = () => {
               </Button>
             </div>
           </>
+        </CustomDialog>
+      )}
+
+      {daoToExpand && (
+        <CustomDialog isOpen={daoToExpand != null} onClose={() => setDaoToExpand(null)}>
+          <DaoView dao={daoToExpand} />
         </CustomDialog>
       )}
     </>

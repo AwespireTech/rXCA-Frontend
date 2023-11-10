@@ -16,7 +16,12 @@ const config: Config = {
       deepgray: "#969696",
       white: "#FFFFFF",
       black: "#000000",
-      transparent: "rgba(0, 0, 0, 0)"
+      transparent: "rgba(0, 0, 0, 0)",
+      label: {
+        pending: "#00A3FF",
+        approved: "#00C814",
+        denied: "#FF4848"
+      }
     }
   },
   plugins: []
