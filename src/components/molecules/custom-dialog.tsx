@@ -36,7 +36,7 @@ export const CustomDialog = ({
               </svg>
             </button>
           </div>
-          <div className="relative flex h-full w-full flex-col items-center gap-4 overflow-scroll">
+          <div className="relative flex max-h-[50vh] w-full flex-col items-center gap-4 overflow-scroll">
             {children}
           </div>
         </div>
