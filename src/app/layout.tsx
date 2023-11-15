@@ -8,7 +8,8 @@ const noto = Noto_Sans_SC({ weight: "400", subsets: ["latin"] })
 
 export const metadata: Metadata = {
   title: "RXCA",
-  description: "RXCA"
+  description: "RXCA",
+  icons: "/favicon.ico"
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

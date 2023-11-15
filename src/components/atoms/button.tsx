@@ -56,19 +56,19 @@ export const Button = ({
           onClick()
         }}
         /* animation on desktop */
-        // onMouseDownCapture={() => {
-        //   setIsClicked((state) => !state)
-        // }}
-        // onMouseUpCapture={() => {
-        //   setIsClicked((state) => !state)
-        // }}
-        // /* animation on mobile */
-        // onTouchStartCapture={() => {
-        //   setIsClicked((state) => !state)
-        // }}
-        // onTouchEndCapture={() => {
-        //   setIsClicked((state) => !state)
-        // }}
+        onMouseDownCapture={() => {
+          setIsClicked((state) => !state)
+        }}
+        onMouseUpCapture={() => {
+          setIsClicked((state) => !state)
+        }}
+        /* animation on mobile */
+        onTouchStartCapture={() => {
+          setIsClicked((state) => !state)
+        }}
+        onTouchEndCapture={() => {
+          setIsClicked((state) => !state)
+        }}
       >
         {children}
       </button>

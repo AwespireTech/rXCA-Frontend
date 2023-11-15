@@ -190,7 +190,7 @@ export const DaoPreview = ({
 export const DaoView = ({ dao }: { dao: Dao }) => {
   return (
     <div className="flex h-full w-full flex-col gap-4 overflow-scroll">
-      {dao.state === DaoStates.Pending && (
+      {dao.state === DaoStates.Approved && (
         <Image src="/images/token.png" width={100} height={100} alt="token" className="m-auto" />
       )}
 
