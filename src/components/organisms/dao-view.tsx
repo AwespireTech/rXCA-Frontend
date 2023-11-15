@@ -1,7 +1,7 @@
 import { Dao } from "@/interfaces/dao.interface"
 import lang from "@/lang/zh"
 import OpenInNew from "../atoms/open-in-new"
-import { API_URL, ETHERSCAN_LINK } from "@/constant"
+import { API_URL, DaoStates, ETHERSCAN_LINK } from "@/constant"
 import { shortenWallet } from "@/utils/string"
 import Image from "next/image"
 
@@ -83,18 +83,18 @@ export const DaoPreview = ({
               {showState && (
                 <div
                   className={`w-fit rounded-md bg-white px-1 py-0.5 text-xs leading-3 ${
-                    dao.state === 0
+                    dao.state === DaoStates.Pending
                       ? "text-label-pending"
-                      : dao.state === 1
+                      : dao.state === DaoStates.Approved
                       ? "text-label-approved"
                       : "text-label-denied"
                   }`}
                 >
-                  {dao.state === 0
-                    ? "申請中"
-                    : dao.state === 1
-                    ? "已通過"
-                    : dao.state === 2 && "已駁回"}
+                  {dao.state === DaoStates.Pending
+                    ? lang.label.pending
+                    : dao.state === DaoStates.Approved
+                    ? lang.label.approved
+                    : dao.state === DaoStates.Denied && lang.label.denied}
                 </div>
               )}
             </div>
@@ -190,7 +190,7 @@ export const DaoPreview = ({
 export const DaoView = ({ dao }: { dao: Dao }) => {
   return (
     <div className="flex h-full w-full flex-col gap-4 overflow-scroll">
-      {dao.state === 1 && (
+      {dao.state === DaoStates.Pending && (
         <Image src="/images/token.png" width={100} height={100} alt="token" className="m-auto" />
       )}
 
@@ -200,14 +200,18 @@ export const DaoView = ({ dao }: { dao: Dao }) => {
           <p className="leading-5 text-deepgray">{`#${dao.id}`}</p>
           <div
             className={`w-fit rounded-md bg-white px-1 py-0.5 text-xs leading-3 ${
-              dao.state === 0
+              dao.state === DaoStates.Pending
                 ? "text-label-pending"
-                : dao.state === 1
+                : dao.state === DaoStates.Approved
                 ? "text-label-approved"
                 : "text-label-denied"
             }`}
           >
-            {dao.state === 0 ? "申請中" : dao.state === 1 ? "已通過" : dao.state === 2 && "已駁回"}
+            {dao.state === DaoStates.Pending
+              ? lang.label.pending
+              : dao.state === DaoStates.Approved
+              ? lang.label.approved
+              : dao.state === DaoStates.Denied && lang.label.denied}
           </div>
         </div>
 
