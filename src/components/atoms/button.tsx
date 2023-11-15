@@ -52,21 +52,23 @@ export const Button = ({
         } z-10 box-border rounded-full border border-secondary ${style} whitespace-nowrap duration-200 ease-in-out ${
           disabled ? "opacity-50" : "opacity-100"
         }`}
-        onClick={onClick}
+        onClick={() => {
+          onClick()
+        }}
         /* animation on desktop */
-        onMouseDownCapture={() => {
-          setIsClicked((state) => !state)
-        }}
-        onMouseUpCapture={() => {
-          setIsClicked((state) => !state)
-        }}
-        /* animation on mobile */
-        onTouchStartCapture={() => {
-          setIsClicked((state) => !state)
-        }}
-        onTouchEndCapture={() => {
-          setIsClicked((state) => !state)
-        }}
+        // onMouseDownCapture={() => {
+        //   setIsClicked((state) => !state)
+        // }}
+        // onMouseUpCapture={() => {
+        //   setIsClicked((state) => !state)
+        // }}
+        // /* animation on mobile */
+        // onTouchStartCapture={() => {
+        //   setIsClicked((state) => !state)
+        // }}
+        // onTouchEndCapture={() => {
+        //   setIsClicked((state) => !state)
+        // }}
       >
         {children}
       </button>

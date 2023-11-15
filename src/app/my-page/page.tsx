@@ -10,6 +10,7 @@ import useXCA from "@/hooks/useXCA"
 import TabGroup from "@/components/molecules/tab-group"
 import { useRouter } from "next/navigation"
 import { CustomDialog } from "@/components/molecules/custom-dialog"
+import { DaoStates } from "@/constant"
 
 const MyPage = () => {
   const { address } = useXCA()
@@ -80,16 +81,18 @@ const MyPage = () => {
                 setDaoToExpand(dao)
               }}
             >
-              <Button
-                id={`cancel-${i}`}
-                variant="secondary"
-                size="normal"
-                onClick={() => {
-                  setDaoToCancel(dao)
-                }}
-              >
-                {lang.action.cancel}
-              </Button>
+              {dao.state === DaoStates.Pending && (
+                <Button
+                  id={`cancel-${i}`}
+                  variant="secondary"
+                  size="normal"
+                  onClick={() => {
+                    setDaoToCancel(dao)
+                  }}
+                >
+                  {lang.action.cancel}
+                </Button>
+              )}
             </DaoPreview>
           ))}
       </div>

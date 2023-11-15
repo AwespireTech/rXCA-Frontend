@@ -207,7 +207,9 @@ const Admin = () => {
                       ? `${lang.action.approve}${lang.dialog.success}`
                       : dialogType === DialogType.Revoke &&
                         `${lang.action.revoke}${lang.dialog.success}`
-                    : status === Status.Fail && lang.dialog.fail}
+                    : status === Status.Fail
+                    ? lang.dialog.fail
+                    : ""}
                 </p>
                 <div className="flex flex-row gap-4">
                   {status === Status.New && (
@@ -232,8 +234,9 @@ const Admin = () => {
                             ? handleDeny(daoToReview.address)
                             : dialogType === DialogType.Approve
                             ? handleApprove(daoToReview.address)
-                            : dialogType === DialogType.Revoke &&
-                              handleRevoke(daoToReview.address, daoToReview.tokenId)
+                            : dialogType === DialogType.Revoke
+                            ? handleRevoke(daoToReview.address, daoToReview.tokenId)
+                            : null
                         }}
                       >
                         {lang.action.yes}
