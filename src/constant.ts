@@ -1,4 +1,6 @@
 export const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://rxca.imlab.app/api"
+export const HTTP_PROVIDER_DOMAIN =
+  process.env.NEXT_PUBLIC_HTTP_PROVIDER_DOMAIN || "eth-sepolia.g.alchemy.com"
 export const HTTP_PROVIDER =
   process.env.NEXT_PUBLIC_HTTP_PROVIDER ||
   "https://eth-sepolia.g.alchemy.com/v2/s65QiLyN-74IJZtUJgtWJiZ9gGzUfxOm"

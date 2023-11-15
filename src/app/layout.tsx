@@ -1,6 +1,7 @@
 import "./globals.css"
 import type { Metadata } from "next"
 import { Noto_Sans_SC } from "next/font/google"
+import { headers } from "next/headers"
 import { XCAProvider } from "@/hooks/useXCA"
 import Header from "@/components/organisms/header"
 
@@ -13,6 +14,7 @@ export const metadata: Metadata = {
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const nonce = headers().get("x-nonce")
   return (
     <html lang="en">
       <body className={`m-0 min-h-screen w-full bg-primary p-0 text-white ${noto.className}`}>
