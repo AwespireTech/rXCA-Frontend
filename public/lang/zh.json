@@ -80,6 +80,10 @@
     "myPage": "個人頁面"
   },
   "page": {
+    "home": {
+      "daostar": "DAO* 標準",
+      "card": "實體 XCA 卡片"
+    },
     "explore": {
       "title": "探索",
       "description": ""

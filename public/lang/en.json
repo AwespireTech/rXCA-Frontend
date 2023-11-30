@@ -76,6 +76,10 @@
     "myPage": "My page"
   },
   "page": {
+    "home": {
+      "daostar": "DAO* standard",
+      "card": "Physical XCA card"
+    },
     "explore": {
       "title": "Explore",
       "description": "Maybe some description"
