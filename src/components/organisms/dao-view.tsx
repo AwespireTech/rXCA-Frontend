@@ -4,6 +4,7 @@ import OpenInNew from "../atoms/open-in-new"
 import { API_URL, DaoStates, ETHERSCAN_LINK } from "@/constant"
 import { shortenWallet } from "@/utils/string"
 import Image from "next/image"
+import { validateUrl } from "@/utils/validate"
 
 const Row = ({
   label,
@@ -44,7 +45,7 @@ const Row = ({
 
         {type === "link" && (
           <a
-            href={value}
+            href={validateUrl(value)}
             target="_blank"
             className={`w-full break-words text-white ${
               lineClamp > 0 && `line-clamp-${lineClamp}`

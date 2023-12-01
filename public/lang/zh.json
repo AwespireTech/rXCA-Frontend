@@ -41,8 +41,8 @@
       "placeholder": "請輸入管理員地址 URI"
     },
     "governanceDocument": {
-      "label": "治理文件",
-      "placeholder": "請輸入治理文件"
+      "label": "治理文件 URI",
+      "placeholder": "請輸入治理文件 URI"
     },
     "daoUri": {
       "label": "DAO URI",
