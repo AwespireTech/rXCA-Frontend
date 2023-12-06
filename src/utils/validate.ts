@@ -8,6 +8,10 @@ export function isValidUrl(url: string) {
 }
 
 export function validateUrl(url: string) {
+  if (url.startsWith("ipfs://")) {
+    return `https://ipfs.io/ipfs/${url.slice(7)}`
+  }
+
   if (!isValidUrl(url)) {
     return `https://${url}`
   }
