@@ -1,17 +1,10 @@
-export const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://rxca.imlab.app/api"
-export const HTTP_PROVIDER_DOMAIN =
-  process.env.NEXT_PUBLIC_HTTP_PROVIDER_DOMAIN || "eth-sepolia.g.alchemy.com"
-export const HTTP_PROVIDER =
-  process.env.NEXT_PUBLIC_HTTP_PROVIDER ||
-  "https://eth-sepolia.g.alchemy.com/v2/s65QiLyN-74IJZtUJgtWJiZ9gGzUfxOm"
-export const CONTRACT_ADDRESS =
-  process.env.NEXT_PUBLIC_CONTRACT_ADDRESS || "0x56271b79d809662f37f7dc87d06912ca1199204a"
-export const CHAIN_ID = process.env.NEXT_PUBLIC_CHAIN_ID || "0xaa36a7"
-export const ETHERSCAN_LINK =
-  process.env.NEXT_PUBLIC_ETHERSCAN_LINK || "https://etherscan.io/address"
-
-export const PHYSICAL_CARD_LINK =
-  process.env.NEXT_PUBLIC_ETHERSCAN_LINK || "https://rxca-verification.plurality.moda.gov.tw"
+export const API_URL = process.env.NEXT_PUBLIC_API_URL
+export const HTTP_PROVIDER_DOMAIN = process.env.NEXT_PUBLIC_HTTP_PROVIDER_DOMAIN
+export const HTTP_PROVIDER = process.env.NEXT_PUBLIC_HTTP_PROVIDER
+export const CONTRACT_ADDRESS = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS
+export const CHAIN_ID = process.env.NEXT_PUBLIC_CHAIN_ID
+export const ETHERSCAN_LINK = process.env.NEXT_PUBLIC_ETHERSCAN_LINK
+export const PHYSICAL_CARD_LINK = "https://rxca-verification.plurality.moda.gov.tw"
 
 export const networkOptions = ["Sepolia"]
 export const defaultNetwork = networkOptions[0]
