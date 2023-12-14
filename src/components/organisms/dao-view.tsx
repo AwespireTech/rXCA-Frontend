@@ -50,6 +50,7 @@ const Row = ({
             className={`w-full break-words text-white ${
               lineClamp > 0 && `line-clamp-${lineClamp}`
             } hover:text-highlight hover:underline`}
+            rel="noopener noreferrer"
           >
             {value}
           </a>
@@ -87,15 +88,15 @@ export const DaoPreview = ({
                     dao.state === DaoStates.Pending
                       ? "text-label-pending"
                       : dao.state === DaoStates.Approved
-                      ? "text-label-approved"
-                      : "text-label-denied"
+                        ? "text-label-approved"
+                        : "text-label-denied"
                   }`}
                 >
                   {dao.state === DaoStates.Pending
                     ? lang.label.pending
                     : dao.state === DaoStates.Approved
-                    ? lang.label.approved
-                    : dao.state === DaoStates.Denied && lang.label.denied}
+                      ? lang.label.approved
+                      : dao.state === DaoStates.Denied && lang.label.denied}
                 </div>
               )}
             </div>
@@ -204,15 +205,15 @@ export const DaoView = ({ dao }: { dao: Dao }) => {
               dao.state === DaoStates.Pending
                 ? "text-label-pending"
                 : dao.state === DaoStates.Approved
-                ? "text-label-approved"
-                : "text-label-denied"
+                  ? "text-label-approved"
+                  : "text-label-denied"
             }`}
           >
             {dao.state === DaoStates.Pending
               ? lang.label.pending
               : dao.state === DaoStates.Approved
-              ? lang.label.approved
-              : dao.state === DaoStates.Denied && lang.label.denied}
+                ? lang.label.approved
+                : dao.state === DaoStates.Denied && lang.label.denied}
           </div>
         </div>
 
